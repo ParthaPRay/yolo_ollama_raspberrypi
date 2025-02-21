@@ -38,8 +38,8 @@ graph TD;
     A[User sends prompt] -->|POST /detect| B[Flask API receives request]
     B --> C[Extract image URL/path using LLM]
     C -->|Extracted URL/path| D{Is URL/path found?}
-    D -- No --> E[Return "No valid image link extracted"]
-    D -- Yes --> F[YOLO model processes image]
+    D --No--> E[Return No valid image link extracted]
+    D --Yes--> F[YOLO model processes image]
     F -->|Detected objects| G[Summarize results using LLM]
     G -->|Summary generated| H[Return JSON response]
     H --> I[Log metrics to CSV]
