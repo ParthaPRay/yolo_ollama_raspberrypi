@@ -31,6 +31,9 @@ OLLAMA_CHAT_URL = "http://localhost:11434/api/chat"
 LLM_EXTRACTOR_NAME = "qwen2.5:0.5b-instruct"
 LLM_SUMMARY_NAME   = "granite3-moe:1b-instruct-q4_K_M"
 
+# YOLO model file name
+YOLO_MODEL_PATH = "yolo8s.pt"
+
 # CSV logging
 CSV_FILE = "metrics_log.csv"
 CSV_HEADERS = [
@@ -68,14 +71,17 @@ CSV_HEADERS = [
     
     # New columns for LLM model names
     "llm_extraction_model_name",
-    "llm_summary_model_name"
+    "llm_summary_model_name",
+    
+    # Yolo model name
+    "yolo_model_name"
 ]
 
 # ------------------------------------------------------------------------
 # 2) Load YOLO Model (PyTorch-based)
 # ------------------------------------------------------------------------
 try:
-    model = YOLO("yolo11m.pt")  # or your local .pt model
+    model = YOLO(YOLO_MODEL_PATH)  # or your local .pt model
     print("[DEBUG] YOLO model loaded successfully.")
 except Exception as e:
     print("[ERROR] Failed to load YOLO model:", e)
@@ -345,7 +351,10 @@ def detect_image():
         
         # New columns for LLM model names
         LLM_EXTRACTOR_NAME,
-        LLM_SUMMARY_NAME
+        LLM_SUMMARY_NAME,
+        
+        # Yolo model name (using the file name)
+        YOLO_MODEL_PATH
     ]
     log_metrics_to_csv(csv_row)
 
